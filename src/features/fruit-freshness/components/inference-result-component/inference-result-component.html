@@ -1,55 +1,42 @@
-<p-card styleClass="analysis-placeholder-card">
-  @if (activeResult; as analysisResult) {
-    <div class="result-preview" [class.result-preview--stale]="analysisResult.status === 'stale'">
-      <div class="result-label">RESULTADO DEL MODELO</div>
+<p-card>
+  @if (analysis) {
+    <div class="flex flex-col gap-5">
+      <p class="text-sm font-semibold">RESULTADO DEL MODELO</p>
 
-      <div class="result-main-row">
-        <h3>{{ analysisResult.className }}</h3>
+      <div class="flex flex-row items-center justify-between">
+        <p class="font-bold text-2xl m-0">{{ analysis.class }}</p>
         <p-tag
-          [severity]="analysisResult.status === 'fresh' ? 'success' : 'danger'"
-          [value]="analysisResult.status === 'fresh' ? 'FRESCO / APTO' : 'DETERIORADO / DESCARTE'"
+          [pt]="{ label: { class: 'text-sm font-normal' } }"
+          icon="pi pi-check-circle"
+          severity="success"
+          value="FRESCO"
+          rounded
         />
       </div>
 
-      <div class="confidence-row">
-        <span>Nivel de Confianza</span>
-        <strong>{{ toPercentage(analysisResult.confidence) }}%</strong>
+      <div class="flex flex-col gap-1.5">
+        <p class="font-light">Nivel de Confianza</p>
+        <p-progressbar
+          [value]="analysis.confidence * 100"
+          [color]="getConfidenceColor(analysis.confidence)"
+        />
       </div>
-      <p-progressbar [value]="toPercentage(analysisResult.confidence)" [showValue]="false" />
 
-      <div class="result-metadata">
-        <div class="metadata-row">
-          <span>Tiempo de Inferencia:</span>
-          <strong>{{ analysisResult.inferenceTime ?? '142ms' }}</strong>
-        </div>
-        <div class="metadata-row">
-          <span>Modelo:</span>
-          <strong>{{ analysisResult.model ?? 'v3.2_ResNet152' }}</strong>
-        </div>
-        <div class="metadata-row">
-          <span>ID Lote:</span>
-          <strong>{{ analysisResult.batchId ?? '#BATCH-2026-X8' }}</strong>
-        </div>
-      </div>
+      <dl class="grid grid-cols-[auto_1fr] p-2.5 bg-neutral-600 rounded-xl gap-y-1">
+        <dt class="font-light">Tiempo de Inferencia</dt>
+        <dd class="text-right font-light">{{ analysis.time }}ms</dd>
+
+        <dt class="font-light">Modelo</dt>
+        <dd class="text-right font-light">{{ analysis.model }}</dd>
+
+        <dt class="font-light">ID Lote</dt>
+        <dd class="text-right font-light">{{ analysis.batch_id }}</dd>
+      </dl>
     </div>
   } @else {
-    <div class="placeholder-content">
-      <i [class]="icon" aria-hidden="true"></i>
-      <p>{{ message }}</p>
-    </div>
-  }
-
-  @if (showMockAction && !result) {
-    <div class="mock-actions">
-      <p-button label="Ejecutar Diagnóstico (Mock)" icon="pi pi-wave-pulse" (onClick)="runMockAnalysis()" />
-      @if (mockResult) {
-        <p-button
-          label="Limpiar"
-          severity="secondary"
-          variant="outlined"
-          (onClick)="clearMockResult()"
-        />
-      }
+    <div class="flex flex-col gap-2.5 items-center">
+      <i class="pi pi-wave-pulse" style="font-size: xx-large"></i>
+      <p>Ejecute un análisis para ver los detalles técnicos de la clasificación.</p>
     </div>
   }
 </p-card>
