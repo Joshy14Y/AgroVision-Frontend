@@ -1,1 +1,47 @@
-<p>inference-history-component works!</p>
+<p-card>
+  <section class="flex flex-col gap-5" aria-labelledby="history-card-title">
+    <header class="flex flex-row items-center justify-between gap-3">
+      <h2 id="history-card-title" class="m-0 text-sm font-semibold flex flex-row items-center gap-2">
+        <i class="pi pi-history" aria-hidden="true"></i>
+        HISTORIAL RECIENTE
+      </h2>
+      <p class="m-0 text-sm font-light">Últimos 5 escaneos</p>
+    </header>
+
+    @if (recentItems.length) {
+      <ul class="m-0 p-0 list-none flex flex-col gap-2.5">
+        @for (historyItem of recentItems; track historyItem.id) {
+          <li>
+            <article
+              class="grid grid-cols-[1fr_auto] gap-2.5 p-2.5 rounded-xl border"
+              style="
+                background: var(--p-content-background);
+                border-color: var(--p-content-border-color);
+              "
+            >
+              <div class="min-w-0 flex flex-col gap-1">
+                <p class="m-0 font-semibold truncate">{{ historyItem.item }}</p>
+                <time class="text-sm font-light">{{ historyItem.timestamp }}</time>
+              </div>
+
+              <div class="flex flex-col items-end justify-between gap-1">
+                <p-tag
+                  [pt]="{ label: { class: 'text-sm font-normal' } }"
+                  [value]="getStatusLabel(historyItem.status)"
+                  [severity]="getStatusSeverity(historyItem.status)"
+                  rounded
+                />
+                <p class="m-0 text-sm font-light">{{ toPercentage(historyItem.confidence) }}%</p>
+              </div>
+            </article>
+          </li>
+        }
+      </ul>
+    } @else {
+      <div class="flex flex-col gap-2.5 items-center">
+        <i class="pi pi-history" style="font-size: xx-large"></i>
+        <p class="m-0 text-center">Ejecute un análisis para ver el historial reciente.</p>
+      </div>
+    }
+  </section>
+</p-card>
