@@ -1,1 +1,42 @@
-<p>inference-result-component works!</p>
+<p-card>
+  @if (analysis) {
+    <div class="flex flex-col gap-5">
+      <p class="text-sm font-semibold">RESULTADO DEL MODELO</p>
+
+      <div class="flex flex-row items-center justify-between">
+        <p class="font-bold text-2xl m-0">{{ analysis.class }}</p>
+        <p-tag
+          [pt]="{ label: { class: 'text-sm font-normal' } }"
+          icon="pi pi-check-circle"
+          severity="success"
+          value="FRESCO"
+          rounded
+        />
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <p class="font-light">Nivel de Confianza</p>
+        <p-progressbar
+          [value]="analysis.confidence * 100"
+          [color]="getConfidenceColor(analysis.confidence)"
+        />
+      </div>
+
+      <dl class="grid grid-cols-[auto_1fr] p-2.5 rounded-xl gap-y-1">
+        <dt class="font-light">Tiempo de Inferencia</dt>
+        <dd class="text-right font-light">{{ analysis.time }}ms</dd>
+
+        <dt class="font-light">Modelo</dt>
+        <dd class="text-right font-light">{{ analysis.model }}</dd>
+
+        <dt class="font-light">ID Lote</dt>
+        <dd class="text-right font-light">{{ analysis.batch_id }}</dd>
+      </dl>
+    </div>
+  } @else {
+    <div class="flex flex-col gap-2.5 items-center">
+      <i class="pi pi-wave-pulse" style="font-size: xx-large"></i>
+      <p>Ejecute un análisis para ver los detalles técnicos de la clasificación.</p>
+    </div>
+  }
+</p-card>
