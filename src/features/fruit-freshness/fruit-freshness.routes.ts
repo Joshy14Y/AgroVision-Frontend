@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { InferencePage } from './pages/inference-page/inference-page';
 
 export default [
