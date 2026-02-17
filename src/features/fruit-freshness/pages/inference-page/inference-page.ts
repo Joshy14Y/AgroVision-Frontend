@@ -20,12 +20,7 @@ export class InferencePage {
   };
 
   history: HistoryItem[] = [
-    {
-      id: 1,
-      class: 'Manzana (Red Delicious)',
-      status: 'fresh',
-      timestamp: '10:23 AM',
-    },
+    { id: 1, class: 'Manzana', status: 'fresh', timestamp: '10:23 AM' },
     { id: 2, class: 'Banano', status: 'stale', timestamp: '10:25 AM' },
     { id: 3, class: 'Tomate', status: 'fresh', timestamp: '10:28 AM' },
     { id: 4, class: 'Pimiento', status: 'stale', timestamp: '10:30 AM' },
