@@ -5,13 +5,7 @@ import { FluidModule } from 'primeng/fluid';
 import { ProgressBar, ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
 
-export interface AnalysisResult {
-  class: string;
-  confidence: number;
-  time: number;
-  model: string;
-  batch_id: string;
-}
+import { AnalysisResult } from '../interfaces/analysis-result.interface';
 
 @Component({
   selector: 'app-inference-result-component',
@@ -23,13 +17,22 @@ export class InferenceResultComponent {
 
   @Input() analysis?: AnalysisResult;
 
-  getConfidenceColor(value: number): string {
-    if (value >= 0.8) {
-      return '#22c55e';
-    } else if (value >= 0.5) {
-      return '#eab308';
-    } else {
-      return '#ef4444';
-    }
+  get statusLabel() {
+    return this.analysis?.status === 'fresh' ? 'FRESCO' : 'CADUCADO';
+  }
+
+  get statusSeverity() {
+    return this.analysis?.status === 'fresh' ? 'success' : 'danger';
+  }
+
+  get statusIcon() {
+    return this.analysis?.status === 'fresh' ? 'pi pi-check-circle' : 'pi pi-times-circle';
+  }
+
+  get confidenceColor() {
+    const score = this.analysis?.confidence ?? 0;
+    if (score >= 0.8) return 'var(--p-green-500)';
+    if (score >= 0.5) return 'var(--p-yellow-500)';
+    return 'var(--p-red-500)';
   }
 }
