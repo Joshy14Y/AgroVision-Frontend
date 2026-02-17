@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { AnalysisResult } from '@features/fruit-freshness/interfaces/analysis-result.interface';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FluidModule } from 'primeng/fluid';
 import { ProgressBar, ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
-
-import { AnalysisResult } from '../interfaces/analysis-result.interface';
 
 @Component({
   selector: 'app-inference-result-component',

@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { HistoryItem } from '@features/fruit-freshness/interfaces/history-item.interface';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
-
-import { HistoryItem } from '../interfaces/history-item.interface';
 
 @Component({
   selector: 'app-inference-history-component',

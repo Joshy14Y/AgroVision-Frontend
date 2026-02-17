@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { InferenceHistoryComponent } from '@features/fruit-freshness/components/inference-history-component/inference-history-component';
 import { InferenceResultComponent } from '@features/fruit-freshness/components/inference-result-component/inference-result-component';
-import { AnalysisResult } from '@features/fruit-freshness/components/interfaces/analysis-result.interface';
-import { HistoryItem } from '@features/fruit-freshness/components/interfaces/history-item.interface';
+import { AnalysisResult } from '@features/fruit-freshness/interfaces/analysis-result.interface';
+import { HistoryItem } from '@features/fruit-freshness/interfaces/history-item.interface';
 
 @Component({
   selector: 'app-inference-page',
