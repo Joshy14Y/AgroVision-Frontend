@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { InferenceHistoryComponent } from '@features/fruit-freshness/components/inference-history-component/inference-history-component';
 import { InferenceResultComponent } from '@features/fruit-freshness/components/inference-result-component/inference-result-component';
 import { AnalysisResult } from '@features/fruit-freshness/interfaces/analysis-result.interface';
+import { FreshnessResDto } from '@features/fruit-freshness/interfaces/freshness-res-dto.interface';
 import { HistoryItem } from '@features/fruit-freshness/interfaces/history-item.interface';
+import { InferenceService } from '@features/fruit-freshness/services/inference.service';
 
 @Component({
   selector: 'app-inference-page',
@@ -10,20 +12,30 @@ import { HistoryItem } from '@features/fruit-freshness/interfaces/history-item.i
   templateUrl: './inference-page.html',
 })
 export class InferencePage {
-  analysis: AnalysisResult = {
-    class: 'Manzana',
-    status: 'fresh',
-    confidence: 0.9,
-    time: 120,
-    model: 'v3.2_ResNet152',
-    batch_id: '#TEST-001',
-  };
+  private InferenceService = inject(InferenceService);
 
-  history: HistoryItem[] = [
-    { id: 1, class: 'Manzana', status: 'fresh', timestamp: '10:23 AM' },
-    { id: 2, class: 'Banano', status: 'stale', timestamp: '10:25 AM' },
-    { id: 3, class: 'Tomate', status: 'fresh', timestamp: '10:28 AM' },
-    { id: 4, class: 'Pimiento', status: 'stale', timestamp: '10:30 AM' },
-    { id: 5, class: 'Melón Amargo', status: 'fresh', timestamp: '10:32 AM' },
-  ];
+  analysis = signal<AnalysisResult | null>(null);
+  history = signal<HistoryItem[]>([]);
+  isLoading = signal<boolean>(false);
+
+  onFileReceived(file: File): void {
+    this.isLoading.set(true);
+
+    this.InferenceService.classify(file).subscribe({
+      next: (res) => {
+        const result = this.mapToAnalysisResult(res);
+        this.analysis.set(result);
+        this.isLoading.set(false);
+      },
+      error: () => this.isLoading.set(false),
+    });
+  }
+
+  private mapToAnalysisResult(res: FreshnessResDto): AnalysisResult {
+    return {
+      class: res.label,
+      status: res.label.toLowerCase().includes('fresh') ? 'fresh' : 'stale',
+      confidence: res.confidence,
+    };
+  }
 }

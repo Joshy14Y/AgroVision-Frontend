@@ -8,8 +8,8 @@
     </div>
 
     <div class="col-span-1 md:col-span-4 flex flex-col gap-5">
-      <app-inference-result-component [analysis]="analysis" />
-      <app-inference-history-component [history]="history" />
+      <app-inference-result-component [analysis]="analysis()" />
+      <app-inference-history-component [history]="history()" />
     </div>
   </div>
 </div>

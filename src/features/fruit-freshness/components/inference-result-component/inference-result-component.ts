@@ -14,7 +14,7 @@ import { TagModule } from 'primeng/tag';
 export class InferenceResultComponent {
   show = false;
 
-  @Input() analysis?: AnalysisResult;
+  @Input() analysis: AnalysisResult | null = null;
 
   get statusLabel() {
     return this.analysis?.status === 'fresh' ? 'FRESCO' : 'CADUCADO';
