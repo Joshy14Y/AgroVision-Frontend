@@ -1,7 +1,7 @@
 import { status } from '../types/status.type';
 
 export interface HistoryItem {
-  id: number;
+  id: string;
   class: string;
   status: status;
   timestamp: string;
