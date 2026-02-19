@@ -1,12 +1,81 @@
-<div class="card flex flex-wrap gap-6 items-center justify-between">
-  <p-fileupload
+<p-card class="rounded-xl">
+  <p-fileUpload
     #fu
-    mode="basic"
-    chooseLabel="Choose"
-    chooseIcon="pi pi-upload"
-    name="demo[]"
-    url="https://www.primefaces.org/cdn/api/upload.php"
+    mode="advanced"
+    [multiple]="false"
+    [customUpload]="true"
+    [auto]="false"
     accept="image/*"
     maxFileSize="1000000"
-  />
-</div>
+    (uploadHandler)="uploadHandler($event)"
+    [pt]="{
+      root: {
+        class: '!border-none',
+      },
+      header: {
+        class: '!p-0 !pb-4',
+      },
+      content: {
+        class: '!p-0 !border-none',
+      },
+    }"
+  >
+    <ng-template pTemplate="header">
+      <div class="flex items-center gap-2 font-semibold text-lg">
+        <i class="pi pi-camera text-xl"></i>
+        <span>ANÁLISIS DE MUESTRA</span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="content" let-files class="p-fileupload-content-p-0">
+      @if (files.length === 0) {
+        <div
+          (click)="fu.choose()"
+          class="flex flex-col items-center justify-center p-10 gap-5 bg-neutral-500 rounded-lg cursor-pointer hover:bg-neutral-500/80"
+        >
+          <i class="pi pi-upload" style="font-size: xx-large"></i>
+          <p class="text-lg">Arrastre una imagen o haga clic para subir</p>
+        </div>
+      } @else {
+        <div class="flex flex-col items-end gap-5">
+          <div
+            class="flex flex-col aspect-square w-full max-w-xs mx-auto items-center justify-between gap-4"
+          >
+            <div class="flex-1 flex items-center justify-center w-full min-h-0">
+              <img
+                [src]="files[0]?.objectURL || 'https://placecats.com/500/500'"
+                class="max-h-full max-w-full rounded-lg object-contain"
+              />
+            </div>
+
+            <div class="flex flex-row items-center justify-between w-full">
+              <div class="flex flex-col min-w-0 gap-1">
+                <p class="truncate font-semibold text-md">
+                  {{ files[0]?.name || 'cat.png' }}
+                </p>
+                <p class="text-sm">
+                  {{ files[0] ? (files[0].size / 1024 / 1024 | number: '1.2-2') : '1.20' }} MB
+                </p>
+              </div>
+              <p-button
+                icon="pi pi-times"
+                variant="text"
+                severity="danger"
+                [rounded]="true"
+                (onClick)="fu.remove($event, 0)"
+              />
+            </div>
+          </div>
+
+          <p-button
+            icon="pi pi-wave-pulse"
+            severity="success"
+            label="Ejecutar Diagnóstico"
+            [loading]="isLoading()"
+            (onClick)="fu.upload()"
+          />
+        </div>
+      }
+    </ng-template>
+  </p-fileUpload>
+</p-card>
