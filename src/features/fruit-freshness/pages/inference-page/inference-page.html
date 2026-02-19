@@ -1,10 +1,10 @@
 <div class="w-full max-w-7xl mx-auto p-5">
   <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
     <div class="col-span-1 md:col-span-8">
-      <div class="p-6 rounded-xl min-h-140 bg-gray-600 shadow-sm">
-        <h2 class="text-xl font-bold mb-4">Panel Principal</h2>
-        <p class="font-light">Contenido provisional aquí...</p>
-      </div>
+      <app-upload-file-component
+        (fileSelected)="onFileReceived($event)"
+        [isLoading]="isLoading()"
+      />
     </div>
 
     <div class="col-span-1 md:col-span-4 flex flex-col gap-5">

@@ -3,6 +3,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default defineConfig([
   {
@@ -22,4 +23,5 @@ export default defineConfig([
       'simple-import-sort/exports': 'error',
     },
   },
+  eslintConfigPrettier,
 ]);

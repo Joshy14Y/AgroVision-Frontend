@@ -15,7 +15,6 @@ export class InferenceService {
   classify(file: File): Observable<FreshnessResDto> {
     const formData = new FormData();
     formData.append('file', file);
-
     return this.http.post<FreshnessResDto>(`${this.BASE_URL}/classify`, formData);
   }
 }

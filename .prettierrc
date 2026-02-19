@@ -13,7 +13,8 @@
       "files": "*.html",
       "options": {
         "parser": "angular",
-        "printWidth": 80
+        "printWidth": 100,
+        "singleAttributePerLine": true
       }
     }
   ]
