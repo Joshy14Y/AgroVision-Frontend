@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "agrovision-frontend": {
+    "agrovision": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -60,10 +60,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "agrovision-frontend:build:production"
+              "buildTarget": "agrovision:build:production"
             },
             "development": {
-              "buildTarget": "agrovision-frontend:build:development"
+              "buildTarget": "agrovision:build:development"
             }
           },
           "defaultConfiguration": "development"
