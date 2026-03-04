@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/agrovision",
+    "public": "dist/agrovision/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
