@@ -5,6 +5,6 @@ import { InferencePage } from './pages/inference-page/inference-page';
 export default [
   {
     path: '',
-    children: [{ path: 'inference', component: InferencePage }],
+    children: [{ path: '', component: InferencePage }],
   },
 ] as Routes;

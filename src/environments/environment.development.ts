@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  defaultRoute: 'fruit-freshness/inference',
+  defaultRoute: '',
   inferenceApiURL: 'http://localhost:8000'
 };

@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  defaultRoute: 'home',
-  inferenceApiURL: 'http://0.0.0.0:8000',
+  defaultRoute: '',
+  inferenceApiURL: 'http://localhost:8000',
 };
