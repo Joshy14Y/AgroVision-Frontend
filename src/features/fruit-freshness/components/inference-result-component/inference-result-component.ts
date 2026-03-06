@@ -34,4 +34,8 @@ export class InferenceResultComponent {
     if (score >= 0.5) return 'var(--p-yellow-500)';
     return 'var(--p-red-500)';
   }
+
+  get confidencePercent(): number {
+    return Math.round((this.analysis?.confidence ?? 0) * 100);
+  }
 }

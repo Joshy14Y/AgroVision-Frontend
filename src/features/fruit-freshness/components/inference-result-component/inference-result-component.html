@@ -16,7 +16,7 @@
 
       <div class="flex flex-col gap-1.5">
         <p class="font-light">Nivel de Confianza</p>
-        <p-progressbar [value]="analysis.confidence * 100" [color]="confidenceColor" />
+        <p-progressbar [value]="confidencePercent" [color]="confidenceColor" />
       </div>
     </div>
   } @else {
