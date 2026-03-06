@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   defaultRoute: '',
-  inferenceApiURL: 'http://localhost:8000'
+  inferenceApiURL: 'https://vh9dlfmmne.execute-api.us-east-2.amazonaws.com'
 };
